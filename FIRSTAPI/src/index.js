@@ -23,7 +23,14 @@ const server = http.createServer((request, response) => {
 
   if (route) {
     request.params = { id };
+
+    response.send = (statusCode, body) => {
+      response.writeHead(statusCode, { 'Content-Type': 'application/json' });
+      response.end(JSON.stringify(body));
+    };
+
     route.handler(request, response);
+
   } else {
     response.writeHead(404, { 'Content-Type' :  'text/html'});
     response.write(`Cannot ${request.method} ${request.url}`);
