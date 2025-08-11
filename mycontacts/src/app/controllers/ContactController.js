@@ -8,21 +8,38 @@ class ContactController {
     response.json(contacts);
   }
 
-  // show(request, response) {
-  //   // Obter um registro
-  // }
+  async show(request, response) {
+     // Obter um registro
+     const { id } = request.params;
+     const contact = await ContactsRepository.findByid(id);
 
-  // store(request, response) {
-  //   // Criar novo registro
-  // }
+     if (!contact) {
+      return response.status(404).json({ error: 'Contact not found' } );
+     } else {
+      response.json(contact);
+     }
+   }
+
+   // store() {
+     // Criar novo registro
+   // }
 
   // update(request, response) {
   //   // Editar um registro
   // }
 
-  // delete(request, response) {
+   async delete(request, response) {
     // Deletar um registro
-  // }
+    const { id } = request.params;
+
+    const contact = await ContactsRepository.findByid(id);
+
+    if (!contact ) {
+      return response.status(404).json({ error: 'Contact not found' } );
+     }
+     await ContactsRepository.delete(id);
+     response.sendStatus(204);
+   }
 }
 
 module.exports = new ContactController();
