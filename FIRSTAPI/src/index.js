@@ -24,6 +24,12 @@ const server = http.createServer((request, response) => {
   if (route) {
     request.params = { id };
 
+
+    response.send = () => {
+      response.writeHead(statusCode, { 'Content-Type': 'application/json' });
+      response.end(JSON.stringify(body));
+    }
+
     response.send = (statusCode, body) => {
       response.writeHead(statusCode, { 'Content-Type': 'application/json' });
       response.end(JSON.stringify(body));
