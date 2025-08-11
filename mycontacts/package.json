@@ -5,7 +5,13 @@
   "main": "srx/index.js",
   "author": "Gabriel Siqueira",
   "license": "MIT",
+  "scripts": {
+    "dev" : "npx nodemon src/index.js"
+  },
   "dependencies": {
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
